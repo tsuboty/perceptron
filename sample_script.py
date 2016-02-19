@@ -20,12 +20,13 @@ data = pd.read_csv("samplefile.csv")
 
 def train(wvec, xvec, label):
     #学習係数
-    low = 1.5
-
+    low = 0.5
+    print np.dot(wvec,xvec) * label
     if (np.dot(wvec,xvec) * label < 0): #不正解
+        print wvec
         wvec_new = wvec + label*low*xvec
-       
-       	print xvec
+        print "add"
+        print label*low*xvec
 
         return wvec_new
     else:
@@ -53,15 +54,16 @@ if __name__ == '__main__':
     x2=np.c_[x0, x2_1, x2_2]
 
     xvecs=np.r_[x1, x2] #np.r_は縦に連結していく。
-    print xvecs
+    # print xvecs
     labels = np.r_[label_x1, label_x2]
 
-    wvec = np.array([2,-1,3])#初期の重みベクトル 適当に決める
+    wvec = np.array([3,1,-2])#初期の重みベクトル 適当に決める
 
     loop = 100
     for j in range(loop):
         for xvec, label in zip(xvecs, labels):
             wvec = train(wvec, xvec, label)
+            # print wvec
 
     # print wvec
 
